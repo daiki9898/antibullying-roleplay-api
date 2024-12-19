@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${scenario.title}">ロールプレイシナリオ</title>
+</head>
+<body>
+<div>
+    <!-- シナリオ -->
+    <div>
+        <h1 th:text="${scenario.title}">シナリオタイトル</h1>
+
+        <!-- 設定 -->
+        <!-- 登場人物 -->
+        <section>
+            <h2>登場人物</h2>
+            <div class="characters">
+                <div
+                        th:each="character : ${scenario.setting.characters}"
+                        class="character"
+                >
+                    <h4 th:text="${character.label}">キャラクター名</h4>
+                    <p th:text="${character.description}">キャラクター説明</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 状況説明 -->
+        <section>
+            <h2>状況説明</h2>
+            <p th:text="${scenario.setting.description}">状況説明</p>
+        </section>
+        <!-- 設定 -->
+
+        <!-- シーン -->
+        <div th:each="scene : ${scenario.scenes}" class="scene">
+            <h3
+                    th:text="'シーン ' + ${scene.sceneNumber} + ': ' + ${scene.sceneDescription}"
+            >
+                シーン説明
+            </h3>
+            <div th:each="dialogue : ${scene.dialoguePairs}" class="dialogue">
+                <p th:if="${dialogue.speaker}">
+                    <strong th:text="${dialogue.speaker}">話者</strong>:
+                    <span th:text="${dialogue.line}">セリフ</span>
+                </p>
+                <p
+                        th:if="${dialogue.speaker.isEmpty()}"
+                        class="italic"
+                        th:text="${dialogue.line}"
+                >
+                    状況描写
+                </p>
+            </div>
+        </div>
+
+        <p th:text="${scenario.postscript}" class="postscript">後日談</p>
+    </div>
+
+    <!-- ワークシート -->
+    <div class="worksheet">
+        <h2>ワークシート</h2>
+        <div th:each="question : ${worksheet.questions}" class="question">
+            <h3 th:text="'質問 ' + ${question.questionNumber}">質問番号</h3>
+            <p th:text="${question.questionText}">質問テキスト</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

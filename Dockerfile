@@ -25,7 +25,7 @@ WORKDIR /app
 COPY --from=build /app/build/libs/*.jar /app/app.jar
 
 # 秘匿ファイルをコピー
-COPY ${CREDENTIALS_FILE_PATH_HOST} /app/src/main/resources/
+COPY ${CREDENTIALS_FILE_PATH_HOST} /app/src/main/resources/${CREDENTIALS_FILE_PATH_HOST}
 
 # ポートを公開
 EXPOSE 8080

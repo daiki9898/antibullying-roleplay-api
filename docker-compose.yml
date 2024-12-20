@@ -7,3 +7,5 @@ services:
       - "8080:8080"
     container_name: "antibullying-roleplay-api"
     image: "antibullying-roleplay-api:latest"
+    environment:
+      - CREDENTIALS_FILE_PATH=${CREDENTIALS_FILE_PATH}

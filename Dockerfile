@@ -7,6 +7,7 @@ WORKDIR /app
 # 必要なファイルをコピー
 COPY build.gradle settings.gradle /app/
 COPY gradle /app/gradle
+COPY ${CREDENTIALS_FILE_PATH} /app/
 
 # 依存関係のダウンロード
 RUN gradle build -x test --parallel --no-daemon || return 0

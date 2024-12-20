@@ -11,8 +11,11 @@ COPY gradle /app/gradle
 # 依存関係のダウンロード
 RUN gradle build -x test --parallel --no-daemon || return 0
 
-# ソースコードをコピーしてアプリをビルド
+# ソースコードをコピー
 COPY src /app/src
+# 秘匿ファイルをコピー
+COPY ${CREDENTIALS_FILE_PATH_HOST} /app/src/main/resources/
+# build
 RUN gradle build -x test --no-daemon
 
 # 実行環境ステージ
@@ -23,9 +26,6 @@ WORKDIR /app
 
 # ビルド成果物をコピー
 COPY --from=build /app/build/libs/*.jar /app/app.jar
-
-# 秘匿ファイルをコピー
-COPY ${CREDENTIALS_FILE_PATH_HOST} src/main/resources
 
 # ポートを公開
 EXPOSE 8080

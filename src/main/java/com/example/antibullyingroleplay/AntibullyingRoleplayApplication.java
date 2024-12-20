@@ -23,8 +23,7 @@ public class AntibullyingRoleplayApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins(allowedOrigins)
-                        .allowedMethods("*");
+                        .allowedOrigins(allowedOrigins);
             }
         };
     }
